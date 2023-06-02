@@ -2,11 +2,11 @@
 
 pipeline {
     environment {
-        GIT_URL = "https://github.com/JeongJaeHa/project-test.git"
-        registry = "jeongjaeha/jenkins"
+        GIT_URL = "https://github.com/jjooooon/web_CICD_jenkins"
+        registry = "jjooooon/web_CICD_jenkins"
         dockerImage = ""
-        dockerhub = "https://hub.docker.com/repository/docker/jeongjaeha/jenkins/general"
-        dockerhub_credentials = "test-dockerhub" #docker credentials ID 작성
+        dockerhub = "https://hub.docker.com/repository/docker/leejoonyoung/cicd-local/general"
+        dockerhub_credentials = "cicd-local" #docker credentials ID 작성
     }
     
     agent any
