@@ -1,0 +1,42 @@
+# jenkinsfile
+
+pipeline {
+    environment {
+        GIT_URL = "https://github.com/JeongJaeHa/project-test.git"
+        registry = "jeongjaeha/jenkins"
+        dockerImage = ""
+        dockerhub = "https://hub.docker.com/repository/docker/jeongjaeha/jenkins/general"
+        dockerhub_credentials = "test-dockerhub" #docker credentials ID 작성
+    }
+    
+    agent any
+
+    stages {
+        stage('start') {
+            steps {
+                echo "start jenkins file test"
+            }
+        }
+        stage('pull') {
+            steps {
+                git url : "${GIT_URL}", branch : "main", poll: true, changelog: true
+            }
+        }
+        stage('build') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('push') {
+            steps {
+                script {
+                    docker.withRegistry('', dockerhub_credentials) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
+}
