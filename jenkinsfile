@@ -13,11 +13,6 @@ pipeline {
         stage('start') {
             steps {
                 echo "start jenkins file test"
-                slackSend (
-                    channel: '#management-service-for-start-up', 
-                    color: '#33FF33', 
-                    message: "STARTED: 5inque web page jenkins-pipeline started"
-                )
             }
         }
         stage('pull') {
@@ -29,7 +24,6 @@ pipeline {
             steps {
                 script {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                    dockerImageLatest = docker.build registry + ":latest"
                 }
             }
         }
@@ -37,33 +31,10 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', dockerhub_credentials) {
-                        try {
-                            dockerImage.push()
-                            dockerImageLatest.push()
-                            currentBuild.result = 'SUCCESS'
-                        } catch (Exception e) {
-                            currentBuild.result = 'FAILURE'
-                            throw e
-                        }
+                        dockerImage.push()
                     }
                 }
             }
-        }
-    }
-    post {
-        success {
-            slackSend (
-                channel: '#management-service-for-start-up', 
-                color: '#33FF33', 
-                message: "SUCCESS: dockerimage:${BUILD_NUMBER}"
-            )
-        }
-        failure {
-            slackSend (
-                channel: '#management-service-for-start-up', 
-                color: '#FF0000', 
-                message: "FAIL: dockerimage:${BUILD_NUMBER}"
-            )
         }
     }
 }
