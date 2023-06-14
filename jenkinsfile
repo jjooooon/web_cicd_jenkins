@@ -1,7 +1,7 @@
 pipeline {
     environment {
         GIT_URL = "https://github.com/jjooooon/web_cicd_jenkins.git"
-        registry = "jjooooon/web_cicd_jenkins"
+        registry = "leejoonyoung/cicd-local"
         dockerImage = ""
         dockerhub = "https://hub.docker.com/repository/docker/leejoonyoung/cicd-local/general"
         dockerhub_credentials = "dockerhub"
