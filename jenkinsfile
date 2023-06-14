@@ -4,7 +4,7 @@ pipeline {
         registry = "jjooooon/web_cicd_jenkins"
         dockerImage = ""
         dockerhub = "https://hub.docker.com/repository/docker/leejoonyoung/cicd-local/general"
-        dockerhub_credentials = "dockerhub"    #젠킨스 내에 지정한 credential id 
+        dockerhub_credentials = "dockerhub"
     }
     
     agent any
